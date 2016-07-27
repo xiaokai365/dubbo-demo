@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.snail.dubbo</groupId>
@@ -198,7 +199,17 @@
 		<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-maven-plugin -->
 		<!-- <dependency> <groupId>org.eclipse.jetty</groupId> <artifactId>jetty-maven-plugin</artifactId> 
 			<version>9.4.0.M0</version> </dependency> -->
-
+			<!-- AOP依赖 -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.8.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.1</version>
+		</dependency>
 
 	</dependencies>
 
@@ -209,6 +220,6 @@
 		<module>api</module>
 		<module>service</module>
 		<module>web</module>
-    <module>pojo</module>
-  </modules>
+		<module>pojo</module>
+	</modules>
 </project>
