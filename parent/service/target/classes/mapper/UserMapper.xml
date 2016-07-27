@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snail.dubbo.mapper.UserMapper">
+
+	<insert id="save" parameterType="com.snail.dubbo.pojo.User">
+			insert into t_user(name,address) values(#{user.name},#{user.address})
+	</insert>
+	
+</mapper>
