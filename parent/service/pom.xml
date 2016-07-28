@@ -15,6 +15,7 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.directory>service</project.build.directory>
 	</properties>
 	<dependencies>
 
@@ -65,4 +66,109 @@
 
 		<!-- dubbo 需要的jar end -->
 	</dependencies>
+
+
+	<build>
+		<finalName>dubbo-server</finalName>
+		
+		
+		<resources>
+			<resource>
+				<targetPath>${project.build.directory}/classes</targetPath>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+
+			<!-- 结合com.alibaba.dubbo.container.Main，需要重点掌握 -->
+			<!-- 把src/main/resource/spring-service.xml放入到 ${dubbo-server}/classes/META-INF/spring目录下 -->
+			<!-- 然后需要把 spring-service.xml里面import属性的路径加上 -->
+			<resource>
+				<targetPath>${project.build.directory}/classes/META-INF/spring</targetPath>
+				<!-- 路径一定要对 -->
+				<directory>src/main/resource</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>spring-service.xml</include>
+				</includes>
+			</resource>
+		</resources>
+		
+		
+		<pluginManagement>  
+            <plugins>  
+                <!-- 解决Maven插件在Eclipse内执行了一系列的生命周期引起冲突 -->  
+                <plugin>  
+                    <groupId>org.eclipse.m2e</groupId>  
+                    <artifactId>lifecycle-mapping</artifactId>  
+                    <version>1.0.0</version>  
+                    <configuration>  
+                        <lifecycleMappingMetadata>  
+                            <pluginExecutions>  
+                                <pluginExecution>  
+                                    <pluginExecutionFilter>  
+                                        <groupId>org.apache.maven.plugins</groupId>  
+                                        <artifactId>maven-dependency-plugin</artifactId>  
+                                        <versionRange>[2.0,)</versionRange>  
+                                        <goals>  
+                                            <goal>copy-dependencies</goal>  
+                                        </goals>  
+                                    </pluginExecutionFilter>  
+                                    <action>  
+                                        <ignore />  
+                                    </action>  
+                                </pluginExecution>  
+                            </pluginExecutions>  
+                        </lifecycleMappingMetadata>  
+                    </configuration>  
+                </plugin>  
+            </plugins>  
+        </pluginManagement>  
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<classesDirectory>target/classes/</classesDirectory>
+					<archive>
+						<manifest>
+							<mainClass>com.alibaba.dubbo.container.Main</mainClass>
+							<useUniqueVersions>false</useUniqueVersions>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>.</Class-Path>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+								<id>copy-dependencies</id>
+								<phase>package</phase>
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>	
+								<configuration>
+										<type>jar</type>
+										<includeTypes>jar</includeTypes>
+										<useUniqueVersions>false</useUniqueVersions>
+										<outputDirectory>
+											${project.build.directory}/lib
+										</outputDirectory>
+								</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+		</plugins>
+	</build>
 </project>
