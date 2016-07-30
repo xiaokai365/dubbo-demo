@@ -9,7 +9,7 @@ import org.I0Itec.zkclient.ZkClient;
 import org.I0Itec.zkclient.serialize.SerializableSerializer;
 
 public class LeaderSelectorZkClient {
-	//启动的服务个数17
+	//启动的服务个数
 	private static final int CLIENT_QTY = 10;
 	//zookeeper服务器的地址
 	private static final String ZOOKEEPER_SERVER = "192.168.186.138:2181";

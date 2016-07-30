@@ -109,9 +109,11 @@ public class WorkServer {
 		if (!running)
 			return;
 		try {
+			//创建临时节点CreateMode.EPHEMERAL
 			zkClient.create(MASTER_PATH, serverData, CreateMode.EPHEMERAL);
 			masterData = serverData;
 			System.out.println(serverData.getName() + " is master");
+			//测试每隔5秒释放master权限
 			delayExector.schedule(new Runnable() {
 				public void run() {
 					if (checkMaster()) {
