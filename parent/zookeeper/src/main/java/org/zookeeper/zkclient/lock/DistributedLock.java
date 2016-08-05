@@ -158,7 +158,7 @@ public class DistributedLock implements Watcher {
 			this.waitPath = GROUP_PATH + "/" + subNodes.get(index - 1);
 			LOG.info(LOG_PREFIX_OF_THREAD + "获取子节点中，排在我前面的" + waitPath);
 			try {
-				zk.getData(waitPath, true, new Stat());
+				zk.getData(waitPath, true, new Stat());//当前zk线程监听上一个zk删除事件
 				return false;
 			} catch (KeeperException e) {
 				if (zk.exists(waitPath, false) == null) {
